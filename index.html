@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Orvion is a private, local-first Mac utility that combines system monitoring, window management, keyboard remapping, clipboard history, notch controls and a floating music player." />
+    <title>Orvion — One clean utility for your Mac</title>
+    <style>
+        :root {
+          --bg: #f5f5f7;
+          --surface: rgba(255, 255, 255, 0.74);
+          --surface-strong: rgba(255, 255, 255, 0.94);
+          --text: #111827;
+          --muted: #6b7280;
+          --line: rgba(17, 24, 39, 0.1);
+          --blue: #007aff;
+          --blue-dark: #005fcc;
+          --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+          --radius-xl: 32px;
+          --radius-lg: 22px;
+          --radius-md: 16px;
+          --max: 1120px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+          color: var(--text);
+          background:
+            radial-gradient(circle at 20% 0%, rgba(0, 122, 255, 0.16), transparent 34%),
+            radial-gradient(circle at 80% 10%, rgba(88, 86, 214, 0.13), transparent 28%),
+            linear-gradient(180deg, #fbfbfd 0%, var(--bg) 100%);
+          min-height: 100vh;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .nav {
+          position: sticky;
+          top: 0;
+          z-index: 20;
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          background: rgba(245, 245, 247, 0.72);
+          border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+          max-width: var(--max);
+          margin: 0 auto;
+          padding: 18px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+        }
+
+        .brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 750;
+          letter-spacing: -0.04em;
+          font-size: 22px;
+        }
+
+        .logo {
+          width: 34px;
+          height: 34px;
+          border-radius: 11px;
+          background: linear-gradient(135deg, #111827, #3b82f6 52%, #a78bfa);
+          box-shadow: 0 10px 28px rgba(0, 122, 255, 0.25);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .logo::after {
+          content: "";
+          position: absolute;
+          inset: 9px 8px 8px 9px;
+          border-radius: 50%;
+          border: 2px solid rgba(255, 255, 255, 0.86);
+          border-top-color: transparent;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          color: var(--muted);
+          font-size: 14px;
+          font-weight: 560;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 9px;
+          min-height: 46px;
+          padding: 0 20px;
+          border-radius: 999px;
+          font-weight: 680;
+          border: 1px solid transparent;
+          transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+          cursor: pointer;
+        }
+
+        .button:hover { transform: translateY(-1px); }
+
+        .primary {
+          background: var(--blue);
+          color: white;
+          box-shadow: 0 14px 34px rgba(0, 122, 255, 0.25);
+        }
+
+        .primary:hover { background: var(--blue-dark); }
+
+        .secondary {
+          background: rgba(255, 255, 255, 0.7);
+          border-color: var(--line);
+          color: var(--text);
+        }
+
+        .hero {
+          max-width: var(--max);
+          margin: 0 auto;
+          padding: 90px 24px 54px;
+          display: grid;
+          grid-template-columns: 1.08fr 0.92fr;
+          gap: 56px;
+          align-items: center;
+        }
+
+        .eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 7px 12px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.64);
+          color: #374151;
+          font-size: 13px;
+          font-weight: 650;
+          margin-bottom: 22px;
+        }
+
+        .pulse {
+          width: 8px;
+          height: 8px;
+          background: #34c759;
+          border-radius: 99px;
+          box-shadow: 0 0 0 6px rgba(52, 199, 89, 0.15);
+        }
+
+        h1 {
+          margin: 0;
+          font-size: clamp(48px, 7vw, 86px);
+          line-height: 0.94;
+          letter-spacing: -0.075em;
+          max-width: 760px;
+        }
+
+        .lead {
+          margin: 24px 0 0;
+          font-size: clamp(19px, 2.2vw, 25px);
+          line-height: 1.35;
+          letter-spacing: -0.035em;
+          color: #4b5563;
+          max-width: 690px;
+        }
+
+        .cta-row {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 34px;
+        }
+
+        .small-note {
+          color: var(--muted);
+          font-size: 14px;
+          margin-top: 18px;
+          line-height: 1.5;
+        }
+
+        .device-card {
+          min-height: 560px;
+          border-radius: 42px;
+          border: 1px solid rgba(255, 255, 255, 0.8);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.46));
+          box-shadow: var(--shadow);
+          padding: 18px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .mac-window {
+          height: 100%;
+          border-radius: 30px;
+          background: rgba(248, 250, 252, 0.9);
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          overflow: hidden;
+          position: relative;
+        }
+
+        .window-top {
+          height: 48px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0 18px;
+          border-bottom: 1px solid var(--line);
+          background: rgba(255, 255, 255, 0.72);
+        }
+
+        .dot { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #28c840; }
+
+        .notch {
+          position: absolute;
+          top: 14px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 168px;
+          height: 34px;
+          border-radius: 0 0 19px 19px;
+          background: #050505;
+          z-index: 2;
+          box-shadow: 0 10px 34px rgba(0, 0, 0, 0.22);
+        }
+
+        .screen-content {
+          padding: 34px 24px 24px;
+          display: grid;
+          gap: 16px;
+        }
+
+        .mini-panel {
+          border-radius: 22px;
+          padding: 18px;
+          background: var(--surface-strong);
+          border: 1px solid var(--line);
+          box-shadow: 0 12px 34px rgba(0, 0, 0, 0.04);
+        }
+
+        .mini-title {
+          font-weight: 760;
+          letter-spacing: -0.035em;
+          margin-bottom: 10px;
+        }
+
+        .bars { display: grid; gap: 8px; }
+        .bar { height: 8px; border-radius: 99px; background: #e5e7eb; overflow: hidden; }
+        .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #007aff, #7c3aed); }
+
+        .floating-player {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          margin-top: 4px;
+        }
+
+        .album {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, #111827, #60a5fa, #c084fc);
+        }
+
+        .player-lines { flex: 1; display: grid; gap: 8px; }
+        .line { height: 9px; border-radius: 999px; background: #e5e7eb; }
+        .line.short { width: 62%; }
+
+        .grid-two {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
+        .section {
+          max-width: var(--max);
+          margin: 0 auto;
+          padding: 54px 24px;
+        }
+
+        .section-center {
+          text-align: center;
+          max-width: 820px;
+          margin: 0 auto 36px;
+        }
+
+        h2 {
+          margin: 0;
+          font-size: clamp(34px, 4.8vw, 58px);
+          line-height: 1.02;
+          letter-spacing: -0.06em;
+        }
+
+        .section-text {
+          margin: 16px auto 0;
+          max-width: 760px;
+          font-size: 19px;
+          line-height: 1.55;
+          letter-spacing: -0.025em;
+          color: #4b5563;
+        }
+
+        .summary-card {
+          border-radius: var(--radius-xl);
+          padding: 34px;
+          background: var(--surface);
+          border: 1px solid rgba(255, 255, 255, 0.82);
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+
+        .feature-list {
+          display: grid;
+          gap: 18px;
+          margin-top: 28px;
+        }
+
+        .feature {
+          display: grid;
+          grid-template-columns: 58px 1fr;
+          gap: 18px;
+          padding: 26px;
+          border-radius: var(--radius-xl);
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          box-shadow: 0 16px 50px rgba(0, 0, 0, 0.045);
+        }
+
+        .icon {
+          width: 58px;
+          height: 58px;
+          border-radius: 18px;
+          display: grid;
+          place-items: center;
+          background: linear-gradient(135deg, rgba(0, 122, 255, 0.13), rgba(124, 58, 237, 0.13));
+          color: var(--blue);
+          font-size: 26px;
+        }
+
+        .feature h3 {
+          margin: 0 0 7px;
+          font-size: 24px;
+          letter-spacing: -0.045em;
+        }
+
+        .feature p {
+          margin: 0;
+          color: #4b5563;
+          line-height: 1.58;
+          font-size: 16.5px;
+        }
+
+        .privacy-strip {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-top: 28px;
+        }
+
+        .privacy-item {
+          padding: 22px;
+          border-radius: var(--radius-lg);
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid var(--line);
+        }
+
+        .privacy-item strong { display: block; margin-bottom: 8px; letter-spacing: -0.025em; }
+        .privacy-item span { color: var(--muted); line-height: 1.5; font-size: 15px; }
+
+        .download-card {
+          text-align: center;
+          padding: 42px 26px;
+          border-radius: 36px;
+          color: white;
+          background:
+            radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.24), transparent 28%),
+            linear-gradient(135deg, #111827, #1d4ed8 58%, #7c3aed);
+          box-shadow: 0 28px 80px rgba(17, 24, 39, 0.22);
+        }
+
+        .download-card h2 { color: white; }
+        .download-card p { color: rgba(255, 255, 255, 0.76); }
+        .download-card .button { background: white; color: #111827; margin-top: 24px; }
+
+        footer {
+          max-width: var(--max);
+          margin: 0 auto;
+          padding: 34px 24px 56px;
+          color: var(--muted);
+          display: flex;
+          justify-content: space-between;
+          gap: 18px;
+          flex-wrap: wrap;
+          font-size: 14px;
+        }
+
+        footer button {
+          border: 0;
+          background: transparent;
+          color: var(--muted);
+          cursor: pointer;
+          font: inherit;
+          padding: 0;
+        }
+
+        footer button:hover { color: var(--text); }
+
+        dialog {
+          width: min(920px, calc(100vw - 28px));
+          max-height: 86vh;
+          border: 1px solid var(--line);
+          border-radius: 28px;
+          padding: 0;
+          box-shadow: 0 40px 120px rgba(0, 0, 0, 0.28);
+          background: white;
+          color: var(--text);
+          overflow: hidden;
+        }
+
+        dialog::backdrop { background: rgba(17, 24, 39, 0.48); backdrop-filter: blur(8px); }
+
+        .modal-head {
+          position: sticky;
+          top: 0;
+          background: rgba(255, 255, 255, 0.88);
+          backdrop-filter: blur(18px);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 18px 22px;
+          border-bottom: 1px solid var(--line);
+          z-index: 3;
+        }
+
+        .modal-head strong { font-size: 18px; letter-spacing: -0.035em; }
+
+        .close {
+          border: 0;
+          background: #f3f4f6;
+          width: 38px;
+          height: 38px;
+          border-radius: 99px;
+          cursor: pointer;
+          font-size: 20px;
+        }
+
+        .modal-body {
+          padding: 26px;
+          overflow: auto;
+          line-height: 1.6;
+        }
+
+        .legal-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 26px;
+        }
+
+        .legal h3 { margin: 0 0 12px; letter-spacing: -0.035em; }
+        .legal h4 { margin: 22px 0 6px; }
+        .legal p { margin: 0 0 10px; color: #4b5563; }
+        .placeholder { color: #b45309; font-weight: 700; }
+
+        @media (max-width: 860px) {
+          .hero { grid-template-columns: 1fr; padding-top: 56px; }
+          .device-card { min-height: 460px; }
+          .privacy-strip, .legal-grid { grid-template-columns: 1fr; }
+          .nav-links { gap: 12px; }
+          .nav-links a:not(.button) { display: none; }
+        }
+
+        @media (max-width: 560px) {
+          .nav-inner { padding: 14px 18px; }
+          .hero, .section { padding-left: 18px; padding-right: 18px; }
+          .grid-two { grid-template-columns: 1fr; }
+          .feature { grid-template-columns: 1fr; }
+          .device-card { padding: 12px; border-radius: 30px; }
+          .summary-card { padding: 24px; }
+          h1 { font-size: 52px; }
+        }
+    </style>
+</head>
+<body>
+<header class="nav">
+    <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Orvion home">
+            <span class="logo" aria-hidden="true"></span>
+            <span>Orvion</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="#features">Features</a>
+            <a href="#privacy">Privacy</a>
+            <button onclick="openDialog('imprint')" class="link-button">Imprint</button>
+            <button onclick="openDialog('privacyDialog')" class="link-button">Privacy</button>
+            <a class="button primary" href="#download">Download</a>
+        </nav>
+    </div>
+</header>
+
+<main id="top">
+    <section class="hero">
+        <div>
+            <div class="eyebrow"><span class="pulse"></span> Local-first Mac utility</div>
+            <h1>One clean control center for your Mac.</h1>
+            <p class="lead">Orvion brings your essential Mac utilities into one elegant app: system usage, window management, keyboard remapping, clipboard history, notch controls and a floating music player.</p>
+            <div class="cta-row">
+                <a class="button primary" href="#download">Download for macOS</a>
+                <a class="button secondary" href="#features">Explore features</a>
+            </div>
+            <p class="small-note">No account. No cloud. No tracking. Your data stays on your Mac.</p>
+        </div>
+
+        <div class="device-card" aria-label="Orvion product mockup">
+            <div class="mac-window">
+                <div class="notch"></div>
+                <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="screen-content">
+                    <div class="mini-panel">
+                        <div class="mini-title">System Usage</div>
+                        <div class="bars">
+                            <div class="bar"><span style="width: 63%"></span></div>
+                            <div class="bar"><span style="width: 38%"></span></div>
+                            <div class="bar"><span style="width: 76%"></span></div>
+                        </div>
+                    </div>
+                    <div class="grid-two">
+                        <div class="mini-panel">
+                            <div class="mini-title">Windows</div>
+                            <div class="bars"><div class="bar"><span style="width: 82%"></span></div><div class="bar"><span style="width: 54%"></span></div></div>
+                        </div>
+                        <div class="mini-panel">
+                            <div class="mini-title">Clipboard</div>
+                            <div class="bars"><div class="bar"><span style="width: 68%"></span></div><div class="bar"><span style="width: 44%"></span></div></div>
+                        </div>
+                    </div>
+                    <div class="mini-panel">
+                        <div class="mini-title">Floating Music Player</div>
+                        <div class="floating-player">
+                            <div class="album"></div>
+                            <div class="player-lines">
+                                <div class="line"></div>
+                                <div class="line short"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-panel">
+                        <div class="mini-title">Keyboard Remapping</div>
+                        <div class="bars"><div class="bar"><span style="width: 58%"></span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="summary-card">
+            <div class="section-center" style="margin-bottom: 0;">
+                <h2>Built to replace the small tools you open every day.</h2>
+                <p class="section-text">Orvion is designed for people who want fewer menu bar apps, fewer background processes and one polished place for everyday Mac controls. It combines practical desktop utilities in a clean Apple-like interface without sending your private data to a server.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="section-center">
+            <h2>Everything important. Nothing bloated.</h2>
+            <p class="section-text">Each feature is focused on daily Mac usage: faster control, better overview and less switching between separate apps.</p>
+        </div>
+
+        <div class="feature-list">
+            <article class="feature">
+                <div class="icon">⌁</div>
+                <div>
+                    <h3>System usage at a glance</h3>
+                    <p>Monitor CPU, memory, network speed and other useful system stats directly from a clean menu bar interface. Built for quick checks without opening Activity Monitor.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">▣</div>
+                <div>
+                    <h3>Window management</h3>
+                    <p>Move, snap and resize windows faster with keyboard shortcuts and predefined layouts. Orvion helps keep your workspace organized without dragging every window manually.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">⌘</div>
+                <div>
+                    <h3>Keyboard remapping</h3>
+                    <p>Create practical remaps and shortcuts for your workflow. Replace awkward key combinations, trigger actions faster and make your keyboard behave the way you actually work.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">◖</div>
+                <div>
+                    <h3>Notch controls</h3>
+                    <p>Use the MacBook notch as a useful interaction area instead of wasted space. Orvion can surface controls, status information and quick actions in a subtle, native-feeling way.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">♪</div>
+                <div>
+                    <h3>Floating music player</h3>
+                    <p>Control your current media from a compact floating player. Keep playback, track information and quick actions visible without switching apps.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">☰</div>
+                <div>
+                    <h3>Clipboard history</h3>
+                    <p>Recover recently copied text and snippets from a local clipboard history. Useful for writing, coding and everyday copy-paste work.</p>
+                </div>
+            </article>
+
+            <article class="feature">
+                <div class="icon">●</div>
+                <div>
+                    <h3>One app instead of many</h3>
+                    <p>Orvion replaces multiple single-purpose utilities with one consistent experience. Fewer icons, fewer settings panels and fewer background tools fighting for attention.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="privacy">
+        <div class="section-center">
+            <h2>Private by default.</h2>
+            <p class="section-text">Orvion is planned as a local-first utility. The app does not need an account, cloud sync or a backend to provide its core features.</p>
+        </div>
+        <div class="privacy-strip">
+            <div class="privacy-item"><strong>100% local core</strong><span>Your settings and utility data stay on your Mac.</span></div>
+            <div class="privacy-item"><strong>No account required</strong><span>Use the app without creating a profile or signing into a service.</span></div>
+            <div class="privacy-item"><strong>No tracking by design</strong><span>The product is built to avoid unnecessary analytics and hidden telemetry.</span></div>
+        </div>
+    </section>
+
+    <section class="section" id="download">
+        <div class="download-card">
+            <h2>Download Orvion</h2>
+            <p class="section-text">The first public build is not available yet. Replace this button with your real download link, Gumroad/Lemon Squeezy checkout, or TestFlight/beta signup when ready.</p>
+            <a class="button" href="mailto:hello@getorvion.app?subject=Orvion%20Beta%20Access">Request beta access</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <span>© <span id="year"></span> Orvion. All rights reserved.</span>
+    <span style="display:flex; gap:16px;">
+      <button onclick="openDialog('imprint')">Imprint / Impressum</button>
+      <button onclick="openDialog('privacyDialog')">Privacy / Datenschutz</button>
+    </span>
+</footer>
+
+<dialog id="imprint">
+    <div class="modal-head">
+        <strong>Imprint / Impressum</strong>
+        <button class="close" onclick="closeDialog('imprint')" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body legal-grid">
+        <div class="legal">
+            <h3>Imprint</h3>
+            <p class="placeholder">Replace all placeholder fields before publishing.</p>
+            <h4>Information according to § 5 TMG</h4>
+            <p>[Your full name]<br>[Street and house number]<br>[Postal code and city]<br>Germany</p>
+            <h4>Contact</h4>
+            <p>Email: hello@getorvion.app</p>
+            <h4>Responsible for content</h4>
+            <p>[Your full name]<br>[Address as above]</p>
+            <h4>Disclaimer</h4>
+            <p>The contents of this website have been created with care. However, no guarantee is given for completeness, accuracy or current validity.</p>
+        </div>
+        <div class="legal">
+            <h3>Impressum</h3>
+            <p class="placeholder">Alle Platzhalter vor Veröffentlichung ersetzen.</p>
+            <h4>Angaben gemäß § 5 TMG</h4>
+            <p>[Dein vollständiger Name]<br>[Straße und Hausnummer]<br>[PLZ und Ort]<br>Deutschland</p>
+            <h4>Kontakt</h4>
+            <p>E-Mail: hello@getorvion.app</p>
+            <h4>Verantwortlich für den Inhalt</h4>
+            <p>[Dein vollständiger Name]<br>[Adresse wie oben]</p>
+            <h4>Haftungshinweis</h4>
+            <p>Die Inhalte dieser Website wurden mit Sorgfalt erstellt. Für Vollständigkeit, Richtigkeit und Aktualität wird jedoch keine Gewähr übernommen.</p>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="privacyDialog">
+    <div class="modal-head">
+        <strong>Privacy Policy / Datenschutzerklärung</strong>
+        <button class="close" onclick="closeDialog('privacyDialog')" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body legal-grid">
+        <div class="legal">
+            <h3>Privacy Policy</h3>
+            <p class="placeholder">Draft only. Adjust this to your real hosting, analytics, payment and app behavior.</p>
+            <h4>Controller</h4>
+            <p>[Your full name]<br>[Address]<br>Email: hello@getorvion.app</p>
+            <h4>Website access</h4>
+            <p>When this website is accessed, technical data may be processed by the hosting provider, such as IP address, date and time of access, requested file, browser type and operating system. This is necessary to provide the website securely and reliably.</p>
+            <h4>Contact by email</h4>
+            <p>If you contact us by email, your message and contact details are processed to answer your request.</p>
+            <h4>Orvion app</h4>
+            <p>The Orvion app is designed as a local-first Mac utility. Core app data, settings, clipboard-related data and configuration are intended to remain on the user's device and are not transmitted to a server by default.</p>
+            <h4>No account and no cloud sync</h4>
+            <p>Orvion does not require a user account for its core functionality. No cloud sync is planned for the initial version.</p>
+            <h4>Changes</h4>
+            <p>This privacy policy may be updated when new services are added, for example analytics, crash reporting, payment providers or download statistics.</p>
+        </div>
+        <div class="legal">
+            <h3>Datenschutzerklärung</h3>
+            <p class="placeholder">Nur Entwurf. An echtes Hosting, Analytics, Zahlungsanbieter und App-Verhalten anpassen.</p>
+            <h4>Verantwortlicher</h4>
+            <p>[Dein vollständiger Name]<br>[Adresse]<br>E-Mail: hello@getorvion.app</p>
+            <h4>Aufruf der Website</h4>
+            <p>Beim Aufruf dieser Website können durch den Hostinganbieter technische Daten verarbeitet werden, z. B. IP-Adresse, Datum und Uhrzeit des Zugriffs, abgerufene Datei, Browsertyp und Betriebssystem. Dies ist erforderlich, um die Website sicher und zuverlässig bereitzustellen.</p>
+            <h4>Kontakt per E-Mail</h4>
+            <p>Wenn du uns per E-Mail kontaktierst, werden deine Nachricht und Kontaktdaten verarbeitet, um deine Anfrage zu beantworten.</p>
+            <h4>Orvion-App</h4>
+            <p>Die Orvion-App ist als lokal arbeitendes Mac-Tool geplant. Kerndaten der App, Einstellungen, Clipboard-bezogene Daten und Konfigurationen sollen standardmäßig auf dem Gerät des Nutzers bleiben und nicht an einen Server übertragen werden.</p>
+            <h4>Kein Account und keine Cloud-Synchronisation</h4>
+            <p>Für die Kernfunktionen von Orvion ist kein Nutzerkonto erforderlich. Für die erste Version ist keine Cloud-Synchronisation vorgesehen.</p>
+            <h4>Änderungen</h4>
+            <p>Diese Datenschutzerklärung kann angepasst werden, wenn neue Dienste hinzukommen, z. B. Analytics, Crash Reporting, Zahlungsanbieter oder Downloadstatistiken.</p>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function openDialog(id) {
+      const dialog = document.getElementById(id);
+      if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+    }
+
+    function closeDialog(id) {
+      const dialog = document.getElementById(id);
+      if (dialog) dialog.close();
+    }
+
+    document.querySelectorAll('dialog').forEach((dialog) => {
+      dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const isOutside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+        if (isOutside) dialog.close();
+      });
+    });
+</script>
+</body>
+</html>
