@@ -1,5 +1,6 @@
 const page = document.body.dataset.page || "";
 const legalPage = document.body.dataset.legalPage || "";
+const downloadUrl = "https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg";
 
 function renderHeader() {
   const navItems = [
@@ -24,7 +25,7 @@ function renderHeader() {
         </a>
         <nav class="site-nav" aria-label="Primary">
           ${navMarkup}
-          <a class="button button-primary button-small" href="mailto:hello@getorvion.app?subject=Download%20Orvion">Download</a>
+          <a class="button button-primary button-small" href="${downloadUrl}">Download</a>
         </nav>
       </div>
     </header>
@@ -50,7 +51,7 @@ function renderFooter() {
           <p class="kicker kicker-light">macOS download</p>
           <h2>Bring your desktop controls together.</h2>
           <p>Use Orvion as a calmer control layer for media, windows, overlays, shortcuts, and quick utilities.</p>
-          <a class="button button-light" href="mailto:hello@getorvion.app?subject=Download%20Orvion">Download for macOS</a>
+          <a class="button button-light" href="${downloadUrl}">Download for macOS</a>
         </div>
         <div class="footer-links">
           <div>
