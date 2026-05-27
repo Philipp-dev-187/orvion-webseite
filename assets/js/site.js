@@ -2,6 +2,7 @@ const page = document.body.dataset.page || "";
 const legalPage = document.body.dataset.legalPage || "";
 const downloadUrl = "https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg";
 const buyUrl = "https://orvion-app.lemonsqueezy.com/checkout/buy/cc1af687-59b8-4466-ba9e-64219466e10c";
+const previewPassword = "orvion-preview";
 
 const translations = {
   en: {
@@ -351,6 +352,45 @@ function setupLanguageSwitchers() {
   });
 }
 
+function setupPreviewGate() {
+  if (sessionStorage.getItem("orvion-preview-unlocked") === "true") return;
+
+  document.body.classList.add("is-preview-locked");
+  const gate = document.createElement("div");
+  gate.className = "preview-gate";
+  gate.innerHTML = `
+    <form class="preview-gate-panel" data-preview-gate>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <p class="preview-gate-kicker">Private Preview</p>
+      <h1>Orvion is not public yet.</h1>
+      <p>Enter the preview password to open the website and download page.</p>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" autocomplete="current-password" autofocus />
+      </label>
+      <button class="button button-primary" type="submit">Unlock</button>
+      <p class="preview-gate-error" role="alert" hidden>Wrong password.</p>
+    </form>
+  `;
+
+  document.body.appendChild(gate);
+
+  gate.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const input = gate.querySelector("input");
+    const error = gate.querySelector(".preview-gate-error");
+    if (input.value === previewPassword) {
+      sessionStorage.setItem("orvion-preview-unlocked", "true");
+      document.body.classList.remove("is-preview-locked");
+      gate.remove();
+      return;
+    }
+    error.hidden = false;
+    input.select();
+  });
+}
+
 mountSharedChrome();
 setupLanguageSwitchers();
 applyTranslations();
+setupPreviewGate();
