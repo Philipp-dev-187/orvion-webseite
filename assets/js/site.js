@@ -1,14 +1,248 @@
 const page = document.body.dataset.page || "";
 const legalPage = document.body.dataset.legalPage || "";
 const downloadUrl = "https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg";
+const buyUrl = "https://orvion-app.lemonsqueezy.com/checkout/buy/cc1af687-59b8-4466-ba9e-64219466e10c";
+
+const translations = {
+  en: {
+    nav_features: "Features",
+    nav_pricing: "Pricing",
+    nav_privacy: "Privacy",
+    nav_imprint: "Imprint",
+    nav_terms: "Terms",
+    nav_download: "Download",
+    footer_kicker: "macOS download",
+    footer_title: "Bring your desktop controls together.",
+    footer_text: "Try Orvion free for 7 days, then unlock all features with a one-time license.",
+    footer_download: "Download for macOS",
+    footer_explore: "Explore",
+    footer_home: "Home",
+    footer_features: "Features",
+    footer_contact: "Contact",
+    footer_legal: "Legal",
+    footer_privacy: "Privacy Policy",
+    footer_imprint: "Imprint",
+    footer_terms: "Terms",
+    footer_rights: "Orvion. All rights reserved.",
+    language_label: "Language",
+
+    hero_eyebrow: "macOS utility · 7-day free trial",
+    hero_title: "Your Mac, calmer at the top edge.",
+    hero_text: "Orvion turns the notch and menu bar into a focused control layer for windows, focus sessions, music, system stats, clipboard history, notes, and quick actions.",
+    download_mac: "Download for macOS",
+    see_pricing: "See pricing",
+    hero_note: "Use every feature free for 7 days. Unlock permanently for 7.99 EUR once.",
+    trust_trial: "Full 7-day trial",
+    trust_license: "One-time license",
+    trust_updates: "Secure Sparkle updates",
+    preview_notch_label: "Notch Control Center",
+    preview_notch_title: "Widgets, pages, and controls where your eyes already are.",
+    preview_focus_label: "Focus Timer",
+    preview_focus_state: "Focus running",
+    preview_windows_label: "Window Layouts",
+    preview_stats_label: "Live Stats",
+    preview_music_label: "Media",
+    preview_music_title: "Now Playing",
+    intro_kicker: "Why Orvion",
+    intro_title: "One polished Mac companion instead of scattered micro-tools.",
+    intro_text: "Orvion is built for people who live in macOS all day and want common desktop actions to feel closer, cleaner, and easier to repeat.",
+    features_kicker: "Features",
+    features_title: "A practical control layer for daily Mac work.",
+    features_text: "Enable the parts you want. Leave everything else out of the way.",
+    feature_notch_title: "Notch Control Center",
+    feature_notch_text: "Create pages with draggable blocks, adjustable size, notes, reminders, mirror, music controls, and quick access panels.",
+    feature_windows_title: "Window Management",
+    feature_windows_text: "Snap the active window into built-in or custom layouts with shortcuts that you can edit to match your workflow.",
+    feature_focus_title: "Focus Timer",
+    feature_focus_text: "Run focus and break cycles from the top edge, with clear phase transitions and optional sound.",
+    feature_media_title: "Music and Floating Player",
+    feature_media_text: "Control Spotify, Apple Music, YouTube, and supported browser playback from the notch or a compact floating player.",
+    feature_remap_title: "Input Remapping",
+    feature_remap_text: "Remap keys, mouse buttons, media keys, and scroll behavior globally or per app.",
+    feature_stats_title: "System Stats",
+    feature_stats_text: "Keep CPU, memory, disk, network, battery, and connectivity information available in configurable tiles.",
+    feature_clipboard_title: "Clipboard History",
+    feature_clipboard_text: "Bring recent copied items back quickly, with local storage controls for how much history you want to keep.",
+    feature_permissions_title: "Permission-aware",
+    feature_permissions_text: "macOS permissions are requested only for features that need them, such as Accessibility, Input Monitoring, Camera, Calendars, Reminders, or Automation.",
+    story_notch_kicker: "Top-edge workspace",
+    story_notch_title: "Turn the notch into a useful place, not dead space.",
+    story_notch_text: "Use Orvion for the little things you check all the time: agenda, reminders, current music, focus timer, notes, quick stats, and temporary tools.",
+    story_flow_kicker: "Desktop flow",
+    story_flow_title: "Fewer interruptions when you are already moving fast.",
+    story_flow_text: "Window layouts, shortcut remaps, media control, and clipboard history sit close to your current work without becoming another full-screen dashboard.",
+    story_tile_windows: "Custom layouts and fast snapping",
+    story_tile_focus: "Automatic focus and break cycles",
+    story_tile_media: "Playback controls without tab hunting",
+    pricing_kicker: "Pricing",
+    pricing_title: "Try everything first. Pay once if it fits.",
+    pricing_text: "No account is required for the trial. After 7 days, Orvion requires a license to keep using the app.",
+    pricing_badge: "One-time license",
+    pricing_subtitle: "Full access after the 7-day trial.",
+    pricing_item_trial: "7 days free with all features",
+    pricing_item_license: "One-time payment, no subscription",
+    pricing_item_updates: "Secure update delivery with Sparkle",
+    pricing_item_activation: "License activation through Lemon Squeezy",
+    buy_license: "Buy License",
+    download_trial: "Download trial",
+    pricing_note_title: "What happens after 7 days?",
+    pricing_note_text: "If no valid license is active, Orvion locks app features. Settings, License, About, Updates, and Quit remain available so you can activate or manage the app.",
+    privacy_kicker: "Privacy posture",
+    privacy_title: "Local-first where the feature allows it.",
+    privacy_text: "Orvion stores settings and license state locally, checks license status through Lemon Squeezy, and uses Sparkle for update checks. The website is hosted on Vercel and downloads are distributed through GitHub Releases.",
+    privacy_local_title: "Local app data",
+    privacy_local_text: "Feature settings, layouts, shortcuts, and local app state are stored on your Mac.",
+    privacy_license_title: "License checks",
+    privacy_license_text: "License activation and validation are handled through Lemon Squeezy's license API.",
+    privacy_updates_title: "Updates",
+    privacy_updates_text: "Sparkle checks the public appcast and downloads signed, notarized updates.",
+    faq_title: "Good things to know before installing.",
+    faq_trial_q: "Do I need to pay before trying Orvion?",
+    faq_trial_a: "No. The app starts with a 7-day full trial on first launch.",
+    faq_features_q: "Can I disable features I do not use?",
+    faq_features_a: "Yes. Orvion is modular, so you can keep only the tools that fit your setup.",
+    faq_permissions_q: "Why does Orvion ask for macOS permissions?",
+    faq_permissions_a: "Some features need system permissions: Accessibility for window management, Input Monitoring for remapping, Camera for mirror, Calendars and Reminders for widgets, and Automation for supported app control.",
+    faq_updates_q: "How are updates installed?",
+    faq_updates_a: "Updates are delivered with Sparkle using signed and notarized release files.",
+    download_kicker: "Download",
+    download_title: "Start your 7-day Orvion trial.",
+    download_text: "Download the signed macOS app, move it to Applications, and use all features before deciding."
+  },
+  de: {
+    nav_features: "Funktionen",
+    nav_pricing: "Preis",
+    nav_privacy: "Datenschutz",
+    nav_imprint: "Impressum",
+    nav_terms: "AGB",
+    nav_download: "Download",
+    footer_kicker: "macOS Download",
+    footer_title: "Bring deine Desktop-Werkzeuge zusammen.",
+    footer_text: "Teste Orvion 7 Tage kostenlos und schalte danach alle Funktionen mit einer einmaligen Lizenz frei.",
+    footer_download: "Für macOS laden",
+    footer_explore: "Entdecken",
+    footer_home: "Startseite",
+    footer_features: "Funktionen",
+    footer_contact: "Kontakt",
+    footer_legal: "Rechtliches",
+    footer_privacy: "Datenschutz",
+    footer_imprint: "Impressum",
+    footer_terms: "AGB",
+    footer_rights: "Orvion. Alle Rechte vorbehalten.",
+    language_label: "Sprache",
+
+    hero_eyebrow: "macOS Tool · 7 Tage kostenlos testen",
+    hero_title: "Dein Mac, ruhiger am oberen Rand.",
+    hero_text: "Orvion macht Notch und Menüleiste zu einer fokussierten Steuerzentrale für Fenster, Fokus-Sessions, Musik, Systemwerte, Clipboard-Verlauf, Notizen und schnelle Aktionen.",
+    download_mac: "Für macOS laden",
+    see_pricing: "Preis ansehen",
+    hero_note: "Teste alle Funktionen 7 Tage kostenlos. Danach einmalig für 7,99 EUR dauerhaft freischalten.",
+    trust_trial: "7 Tage Vollzugriff",
+    trust_license: "Einmalige Lizenz",
+    trust_updates: "Sichere Sparkle Updates",
+    preview_notch_label: "Notch Control Center",
+    preview_notch_title: "Widgets, Seiten und Controls dort, wo du ohnehin hinschaust.",
+    preview_focus_label: "Focus Timer",
+    preview_focus_state: "Fokus läuft",
+    preview_windows_label: "Fensterlayouts",
+    preview_stats_label: "Live-Systemwerte",
+    preview_music_label: "Medien",
+    preview_music_title: "Läuft gerade",
+    intro_kicker: "Warum Orvion",
+    intro_title: "Ein sauberer Mac-Begleiter statt verstreuter Mini-Tools.",
+    intro_text: "Orvion ist für Menschen gebaut, die täglich in macOS arbeiten und häufige Desktop-Aktionen näher, klarer und wiederholbarer machen wollen.",
+    features_kicker: "Funktionen",
+    features_title: "Eine praktische Steuerzentrale für den Mac-Alltag.",
+    features_text: "Aktiviere, was du brauchst. Alles andere bleibt aus dem Weg.",
+    feature_notch_title: "Notch Control Center",
+    feature_notch_text: "Erstelle Seiten mit verschiebbaren Blöcken, anpassbarer Größe, Notizen, Erinnerungen, Spiegel, Musiksteuerung und Schnellzugriffen.",
+    feature_windows_title: "Fenstermanagement",
+    feature_windows_text: "Ordne aktive Fenster per eingebautem oder eigenem Layout an und passe Shortcuts an deinen Workflow an.",
+    feature_focus_title: "Focus Timer",
+    feature_focus_text: "Starte Fokus- und Pausenzyklen am oberen Bildschirmrand, mit klaren Wechseln und optionalem Ton.",
+    feature_media_title: "Musik und Floating Player",
+    feature_media_text: "Steuere Spotify, Apple Music, YouTube und unterstützte Browser-Medien aus der Notch oder einem kompakten Floating Player.",
+    feature_remap_title: "Input Remapping",
+    feature_remap_text: "Belege Tasten, Maustasten, Medientasten und Scrollverhalten global oder pro App neu.",
+    feature_stats_title: "System Stats",
+    feature_stats_text: "Zeige CPU, Speicher, Festplatte, Netzwerk, Batterie und Verbindung in konfigurierbaren Kacheln.",
+    feature_clipboard_title: "Clipboard-Verlauf",
+    feature_clipboard_text: "Hole zuletzt kopierte Inhalte schnell zurück und steuere lokal, wie viel Verlauf gespeichert wird.",
+    feature_permissions_title: "Berechtigungen mit Sinn",
+    feature_permissions_text: "macOS-Berechtigungen werden nur für Funktionen benötigt, die sie verwenden, etwa Bedienungshilfen, Input Monitoring, Kamera, Kalender, Erinnerungen oder Automation.",
+    story_notch_kicker: "Arbeitsfläche am oberen Rand",
+    story_notch_title: "Mach die Notch zu einem nützlichen Ort, nicht zu leerem Raum.",
+    story_notch_text: "Nutze Orvion für Dinge, die du ständig kurz prüfst: Termine, Erinnerungen, aktuelle Musik, Focus Timer, Notizen, Systemwerte und kleine Werkzeuge.",
+    story_flow_kicker: "Desktop-Flow",
+    story_flow_title: "Weniger Unterbrechung, wenn du gerade schnell arbeitest.",
+    story_flow_text: "Fensterlayouts, Shortcut-Remaps, Mediensteuerung und Clipboard-Verlauf bleiben nah an deiner Arbeit, ohne ein weiteres großes Dashboard zu werden.",
+    story_tile_windows: "Eigene Layouts und schnelles Snapping",
+    story_tile_focus: "Automatische Fokus- und Pausenzyklen",
+    story_tile_media: "Mediensteuerung ohne Tab-Suche",
+    pricing_kicker: "Preis",
+    pricing_title: "Erst alles testen. Dann einmalig zahlen, wenn es passt.",
+    pricing_text: "Für den Test ist kein Account nötig. Nach 7 Tagen braucht Orvion eine Lizenz, damit du die App weiter nutzen kannst.",
+    pricing_badge: "Einmalige Lizenz",
+    pricing_subtitle: "Vollzugriff nach dem 7-Tage-Test.",
+    pricing_item_trial: "7 Tage kostenlos mit allen Funktionen",
+    pricing_item_license: "Einmalzahlung, kein Abo",
+    pricing_item_updates: "Sichere Updates über Sparkle",
+    pricing_item_activation: "Lizenzaktivierung über Lemon Squeezy",
+    buy_license: "Lizenz kaufen",
+    download_trial: "Testversion laden",
+    pricing_note_title: "Was passiert nach 7 Tagen?",
+    pricing_note_text: "Wenn keine gültige Lizenz aktiv ist, sperrt Orvion die App-Funktionen. Settings, License, About, Updates und Quit bleiben erreichbar, damit du aktivieren oder verwalten kannst.",
+    privacy_kicker: "Datenschutz",
+    privacy_title: "Lokal zuerst, soweit es die Funktion erlaubt.",
+    privacy_text: "Orvion speichert Einstellungen und Lizenzstatus lokal, prüft Lizenzen über Lemon Squeezy und nutzt Sparkle für Updatechecks. Die Website läuft über Vercel, Downloads über GitHub Releases.",
+    privacy_local_title: "Lokale App-Daten",
+    privacy_local_text: "Feature-Einstellungen, Layouts, Shortcuts und lokaler App-Zustand werden auf deinem Mac gespeichert.",
+    privacy_license_title: "Lizenzprüfung",
+    privacy_license_text: "Lizenzaktivierung und -validierung laufen über die License API von Lemon Squeezy.",
+    privacy_updates_title: "Updates",
+    privacy_updates_text: "Sparkle prüft den öffentlichen Appcast und lädt signierte, notarized Updates.",
+    faq_title: "Gut zu wissen vor der Installation.",
+    faq_trial_q: "Muss ich vor dem Test bezahlen?",
+    faq_trial_a: "Nein. Die App startet beim ersten Öffnen mit einem vollständigen 7-Tage-Test.",
+    faq_features_q: "Kann ich ungenutzte Funktionen deaktivieren?",
+    faq_features_a: "Ja. Orvion ist modular, du kannst nur die Werkzeuge aktiv lassen, die zu deinem Setup passen.",
+    faq_permissions_q: "Warum fragt Orvion nach macOS-Berechtigungen?",
+    faq_permissions_a: "Einige Funktionen brauchen Systemrechte: Bedienungshilfen für Fenstermanagement, Input Monitoring für Remapping, Kamera für Mirror, Kalender und Erinnerungen für Widgets sowie Automation für unterstützte App-Steuerung.",
+    faq_updates_q: "Wie werden Updates installiert?",
+    faq_updates_a: "Updates laufen über Sparkle mit signierten und notarisierten Release-Dateien.",
+    download_kicker: "Download",
+    download_title: "Starte deinen 7-Tage-Test von Orvion.",
+    download_text: "Lade die signierte macOS-App, verschiebe sie in Programme und nutze alle Funktionen, bevor du dich entscheidest."
+  }
+};
+
+function currentLang() {
+  const stored = localStorage.getItem("orvion-language");
+  if (stored === "de" || stored === "en") return stored;
+  return navigator.language.toLowerCase().startsWith("de") ? "de" : "en";
+}
+
+function t(key) {
+  const lang = currentLang();
+  return translations[lang][key] || translations.en[key] || key;
+}
+
+function renderLanguageSwitcher(className = "") {
+  return `
+    <div class="language-switcher ${className}" role="tablist" aria-label="${t("language_label")}">
+      <button type="button" class="language-button" data-set-lang="en" role="tab">EN</button>
+      <button type="button" class="language-button" data-set-lang="de" role="tab">DE</button>
+    </div>
+  `;
+}
 
 function renderHeader() {
   const navItems = [
-    { href: "/#features", label: "Features", key: "features" },
-    { href: "/#permissions", label: "Permissions", key: "permissions" },
-    { href: "/privacy/", label: "Privacy", key: "privacy" },
-    { href: "/imprint/", label: "Imprint", key: "imprint" },
-    { href: "/terms/", label: "Terms", key: "terms" }
+    { href: "/#features", label: t("nav_features"), key: "features" },
+    { href: "/#pricing", label: t("nav_pricing"), key: "pricing" },
+    { href: "/privacy/", label: t("nav_privacy"), key: "privacy" },
+    { href: "/imprint/", label: t("nav_imprint"), key: "imprint" },
+    { href: "/terms/", label: t("nav_terms"), key: "terms" }
   ];
 
   const navMarkup = navItems.map((item) => {
@@ -17,7 +251,7 @@ function renderHeader() {
   }).join("");
 
   return `
-    <header class="site-header">
+    <header class="site-header" data-site-header>
       <div class="shell nav-shell">
         <a class="brand" href="/" aria-label="Orvion home">
           <span class="brand-mark" aria-hidden="true"></span>
@@ -25,7 +259,8 @@ function renderHeader() {
         </a>
         <nav class="site-nav" aria-label="Primary">
           ${navMarkup}
-          <a class="button button-primary button-small" href="${downloadUrl}">Download</a>
+          ${renderLanguageSwitcher("language-switcher-nav")}
+          <a class="button button-primary button-small" href="${downloadUrl}">${t("nav_download")}</a>
         </nav>
       </div>
     </header>
@@ -34,43 +269,37 @@ function renderHeader() {
 
 function renderFooter() {
   const year = new Date().getFullYear();
-  const showLanguageControls = document.querySelector("[data-legal-switcher]") ? `
-    <div class="footer-language-note">
-      <span>Language</span>
-      <div class="language-switcher language-switcher-footer" role="tablist" aria-label="Footer language switcher">
-        <button type="button" class="language-button is-active" data-lang-target="en" role="tab" aria-selected="true">English</button>
-        <button type="button" class="language-button" data-lang-target="de" role="tab" aria-selected="false">Deutsch</button>
-      </div>
-    </div>
-  ` : "";
 
   return `
-    <footer class="site-footer">
+    <footer class="site-footer" data-site-footer>
       <div class="shell footer-panel">
         <div class="footer-cta">
-          <p class="kicker kicker-light">macOS download</p>
-          <h2>Bring your desktop controls together.</h2>
-          <p>Use Orvion as a calmer control layer for media, windows, overlays, shortcuts, and quick utilities.</p>
-          <a class="button button-light" href="${downloadUrl}">Download for macOS</a>
+          <p class="kicker kicker-light">${t("footer_kicker")}</p>
+          <h2>${t("footer_title")}</h2>
+          <p>${t("footer_text")}</p>
+          <a class="button button-light" href="${downloadUrl}">${t("footer_download")}</a>
         </div>
         <div class="footer-links">
           <div>
-            <strong>Explore</strong>
-            <a href="/">Home</a>
-            <a href="/#features">Features</a>
-            <a href="/contact/">Contact</a>
+            <strong>${t("footer_explore")}</strong>
+            <a href="/">${t("footer_home")}</a>
+            <a href="/#features">${t("footer_features")}</a>
+            <a href="/contact/">${t("footer_contact")}</a>
           </div>
           <div>
-            <strong>Legal</strong>
-            <a href="/privacy/">Privacy Policy</a>
-            <a href="/imprint/">Imprint</a>
-            <a href="/terms/">Terms</a>
+            <strong>${t("footer_legal")}</strong>
+            <a href="/privacy/">${t("footer_privacy")}</a>
+            <a href="/imprint/">${t("footer_imprint")}</a>
+            <a href="/terms/">${t("footer_terms")}</a>
           </div>
         </div>
       </div>
       <div class="shell footer-meta">
-        <span>© ${year} Orvion. All rights reserved.</span>
-        ${showLanguageControls}
+        <span>© ${year} ${t("footer_rights")}</span>
+        <div class="footer-language-note">
+          <span>${t("language_label")}</span>
+          ${renderLanguageSwitcher("language-switcher-footer")}
+        </div>
       </div>
     </footer>
   `;
@@ -88,32 +317,40 @@ function mountSharedChrome() {
   }
 }
 
-function setupLegalLanguageSwitcher() {
-  const switchers = document.querySelectorAll(".language-switcher");
-  if (!switchers.length) return;
+function applyTranslations() {
+  const lang = currentLang();
+  document.documentElement.lang = lang;
 
-  switchers.forEach((switcher) => {
-    const buttons = [...switcher.querySelectorAll("[data-lang-target]")];
-    const panels = [...document.querySelectorAll("[data-lang-panel]")];
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const key = node.dataset.i18n;
+    const value = translations[lang][key];
+    if (value) node.textContent = value;
+  });
 
-    function activate(lang) {
-      buttons.forEach((button) => {
-        const active = button.dataset.langTarget === lang;
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-selected", String(active));
-      });
+  document.querySelectorAll("[data-set-lang]").forEach((button) => {
+    const active = button.dataset.setLang === lang;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
 
-      panels.forEach((panel) => {
-        const active = panel.dataset.langPanel === lang;
-        panel.classList.toggle("is-active", active);
-      });
-    }
+  document.querySelectorAll("[data-lang-panel]").forEach((panel) => {
+    const active = panel.dataset.langPanel === lang;
+    panel.classList.toggle("is-active", active);
+  });
+}
 
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => activate(button.dataset.langTarget));
-    });
+function setupLanguageSwitchers() {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-set-lang], [data-lang-target]");
+    if (!button) return;
+    const lang = button.dataset.setLang || button.dataset.langTarget;
+    if (lang !== "de" && lang !== "en") return;
+    localStorage.setItem("orvion-language", lang);
+    mountSharedChrome();
+    applyTranslations();
   });
 }
 
 mountSharedChrome();
-setupLegalLanguageSwitcher();
+setupLanguageSwitchers();
+applyTranslations();

@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Orvion</title>
+        <item>
+            <title>1.0</title>
+            <pubDate>Tue, 26 May 2026 22:26:52 +0200</pubDate>
+            <link>https://www.getorvion.app</link>
+            <sparkle:version>42</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg" length="6897057" type="application/octet-stream" sparkle:edSignature="s0apq1CPJbqqiyZV4q+5QegMbDEbOoTlhmyFZ3KyLUFQPcHO6txyPCc0yksW8tFCpDLup/L0kVG/8pHzliQZBA=="/>
+        </item>
+    </channel>
+</rss>
