@@ -26,6 +26,9 @@ const translations = {
     footer_terms: "Terms",
     footer_rights: "Orvion. All rights reserved.",
     language_label: "Language",
+    theme_label: "Theme",
+    theme_dark: "Dark",
+    theme_light: "Light",
 
     hero_eyebrow: "macOS utility · 7-day free trial",
     hero_title: "Make your Mac’s top edge useful.",
@@ -138,6 +141,9 @@ const translations = {
     footer_terms: "AGB",
     footer_rights: "Orvion. Alle Rechte vorbehalten.",
     language_label: "Sprache",
+    theme_label: "Design",
+    theme_dark: "Dunkel",
+    theme_light: "Hell",
 
     hero_eyebrow: "macOS Tool · 7 Tage kostenlos testen",
     hero_title: "Mach den oberen Rand deines Macs nützlich.",
@@ -251,6 +257,42 @@ function renderLanguageSwitcher(className = "") {
   `;
 }
 
+function preferredSystemTheme() {
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+}
+
+function currentTheme() {
+  const stored = localStorage.getItem("orvion-theme");
+  if (stored === "dark" || stored === "light") return stored;
+  return preferredSystemTheme();
+}
+
+function applyTheme() {
+  const theme = currentTheme();
+  document.documentElement.dataset.theme = theme;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) {
+    themeColor.setAttribute("content", theme === "dark" ? "#080d16" : "#f5f7fb");
+  }
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.dataset.themeState = theme;
+    button.setAttribute("aria-label", `${t("theme_label")}: ${theme === "dark" ? t("theme_dark") : t("theme_light")}`);
+    const label = button.querySelector("[data-theme-toggle-label]");
+    if (label) label.textContent = theme === "dark" ? t("theme_dark") : t("theme_light");
+  });
+}
+
+function renderThemeToggle() {
+  const theme = currentTheme();
+  return `
+    <button type="button" class="theme-toggle" data-theme-toggle data-theme-state="${theme}" aria-label="${t("theme_label")}">
+      <span class="theme-toggle-icon" aria-hidden="true"></span>
+      <span data-theme-toggle-label>${theme === "dark" ? t("theme_dark") : t("theme_light")}</span>
+    </button>
+  `;
+}
+
 function renderHeader() {
   const navItems = [
     { href: "/#features", label: t("nav_features"), key: "features" },
@@ -274,6 +316,7 @@ function renderHeader() {
         </a>
         <nav class="site-nav" aria-label="Primary">
           ${navMarkup}
+          ${renderThemeToggle()}
           ${renderLanguageSwitcher("language-switcher-nav")}
           <a class="button button-primary button-small" href="${downloadUrl}">${t("nav_download")}</a>
         </nav>
@@ -362,7 +405,23 @@ function setupLanguageSwitchers() {
     if (lang !== "de" && lang !== "en") return;
     localStorage.setItem("orvion-language", lang);
     mountSharedChrome();
+    applyTheme();
     applyTranslations();
+  });
+}
+
+function setupThemeToggle() {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-theme-toggle]");
+    if (!button) return;
+    const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+    localStorage.setItem("orvion-theme", nextTheme);
+    applyTheme();
+  });
+
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
+  mediaQuery.addEventListener("change", () => {
+    if (!localStorage.getItem("orvion-theme")) applyTheme();
   });
 }
 
@@ -405,6 +464,8 @@ function setupPreviewGate() {
 }
 
 mountSharedChrome();
+applyTheme();
 setupLanguageSwitchers();
+setupThemeToggle();
 applyTranslations();
 setupPreviewGate();
