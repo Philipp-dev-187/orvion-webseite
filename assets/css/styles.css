@@ -446,6 +446,11 @@ p {
   object-position: top center;
 }
 
+.product-frame-notes img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .product-frame-tall {
   aspect-ratio: 0.9 / 1;
 }
@@ -516,7 +521,7 @@ p {
 }
 
 .feature-card-music .product-frame-card img {
-  width: 112%;
+  width: 94%;
   height: auto;
   max-width: none;
   max-height: 100%;
@@ -901,12 +906,12 @@ p {
 }
 
 .feature-spotlight-notes {
-  grid-template-columns: minmax(0, 0.68fr) minmax(240px, 1fr);
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "heading heading"
-    "text media";
-  align-items: end;
-  gap: 18px 24px;
+    "heading"
+    "media";
+  align-items: stretch;
+  gap: 22px;
 }
 
 .feature-notes-heading {
@@ -914,29 +919,32 @@ p {
 }
 
 .feature-notes-heading h3 {
-  margin-top: 16px;
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  line-height: 1;
+  margin-top: 0;
+  font-size: clamp(1.75rem, 2vw, 2.35rem);
+  line-height: 1.04;
 }
 
-.feature-notes-body {
-  grid-area: text;
-}
-
-.feature-notes-body p {
+.feature-notes-heading p {
+  margin-top: 12px;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.55;
   font-size: 1.03rem;
 }
 
 .feature-spotlight-notes .product-frame {
   grid-area: media;
+  width: 100%;
+  aspect-ratio: 1572 / 498;
 }
 
 .feature-copy h3 {
-  margin-top: 16px;
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  line-height: 1;
+  margin-top: 0;
+  font-size: clamp(1.75rem, 2vw, 2.35rem);
+  line-height: 1.04;
+}
+
+.feature-spotlight-large .feature-copy h3 {
+  font-size: clamp(1.75rem, 2vw, 2.35rem);
 }
 
 .feature-copy p:last-child {
@@ -991,7 +999,8 @@ p {
 
 .feature-card-media h3 {
   margin-top: 0;
-  font-size: 1.32rem;
+  font-size: clamp(1.75rem, 2vw, 2.35rem);
+  line-height: 1.04;
 }
 
 .feature-card-menu-controls .product-frame-card {
@@ -1018,6 +1027,10 @@ p {
 .feature-card-music .product-frame-card {
   height: 205px;
   margin-bottom: 18px;
+}
+
+.feature-card-music .product-frame-card {
+  height: 185px;
 }
 
 .feature-card-wide {
@@ -1538,7 +1551,6 @@ p {
   .feature-spotlight-notes {
     grid-template-areas:
       "heading"
-      "text"
       "media";
   }
 
@@ -1642,6 +1654,10 @@ p {
   .feature-card-clipboard .product-frame-card,
   .feature-card-music .product-frame-card {
     height: auto;
+  }
+
+  .feature-spotlight-notes .product-frame-notes {
+    aspect-ratio: 1572 / 498;
   }
 
   .product-frame-menu {
