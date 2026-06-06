@@ -2,7 +2,6 @@ const page = document.body.dataset.page || "";
 const legalPage = document.body.dataset.legalPage || "";
 const downloadUrl = "https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg";
 const buyUrl = "https://orvion-app.lemonsqueezy.com/checkout/buy/cc1af687-59b8-4466-ba9e-64219466e10c";
-const previewPassword = "orvion-preview";
 
 const translations = {
   en: {
@@ -16,6 +15,7 @@ const translations = {
     footer_title: "Keep the small controls close.",
     footer_text: "Try the full app for 7 days. If it earns a place on your Mac, keep it with a one-time license.",
     footer_download: "Download for macOS",
+    footer_buy: "Buy license",
     footer_explore: "Explore",
     footer_home: "Home",
     footer_features: "Features",
@@ -32,10 +32,9 @@ const translations = {
 
     hero_eyebrow: "macOS productivity app · 7-day full trial",
     hero_title: "Control your Mac from the notch.",
-    hero_text: "Orvion keeps the controls you reach for all day in the notch and menu bar: notes, music, focus, system stats, clipboard history, window layouts, and quick actions.",
+    hero_text: "Notes, media, focus, system stats, clipboard, and window tools stay available from the notch and menu bar.",
     download_mac: "Download for macOS",
     see_pricing: "See pricing",
-    hero_note: "Try every feature for 7 days. Keep Orvion forever with a single 7.99 EUR purchase.",
     trust_trial: "7-day full trial",
     trust_license: "Pay once, keep it",
     trust_updates: "Signed automatic updates",
@@ -47,12 +46,15 @@ const translations = {
     preview_stats_label: "Live Stats",
     preview_music_label: "Media",
     preview_music_title: "Now Playing",
-    intro_kicker: "Why Orvion",
-    intro_title: "A faster home for the things that usually break your flow.",
-    intro_text: "Orvion turns quick checks and repeated Mac actions into a compact workspace that stays close without taking over your screen.",
     features_kicker: "Features",
-    features_title: "Everything useful, nothing in your way.",
-    features_text: "Choose the modules that fit your setup, open them from the notch or menu bar, and get back to what you were doing.",
+    features_title: "Tools that stay close to your work.",
+    features_text: "Choose only the modules that fit your workflow. Everything else stays quiet until you need it.",
+    features_group_notch_title: "In the notch",
+    features_group_notch_text: "Widgets and quick checks",
+    features_group_desktop_title: "On the desktop",
+    features_group_desktop_text: "Controls without app switching",
+    features_group_setup_title: "Your setup",
+    features_group_setup_text: "Modular and locally stored",
     feature_notch_kicker: "Notch workspace",
     feature_notch_title: "Notch Control Center",
     feature_notch_text: "Create your own pages for music, calendar, notes, drop shelf, mirror, focus timer, and quick tools. The notch becomes a useful command space instead of unused screen space.",
@@ -131,6 +133,7 @@ const translations = {
     footer_title: "Die kleinen Werkzeuge bleiben griffbereit.",
     footer_text: "Teste Orvion 7 Tage vollständig. Wenn es auf deinen Mac gehört, schaltest du es einmalig frei.",
     footer_download: "Für macOS laden",
+    footer_buy: "Lizenz kaufen",
     footer_explore: "Entdecken",
     footer_home: "Startseite",
     footer_features: "Funktionen",
@@ -147,10 +150,9 @@ const translations = {
 
     hero_eyebrow: "Produktivitäts-App für macOS · 7 Tage Vollzugriff",
     hero_title: "Steuere deinen Mac aus der Notch.",
-    hero_text: "Orvion bündelt die kleinen Dinge, die du ständig brauchst, direkt in Notch und Menüleiste: Notizen, Musik, Fokus, Systemwerte, Zwischenablage, Fensterlayouts und schnelle Aktionen.",
+    hero_text: "Notizen, Medien, Fokus, Systemwerte, Zwischenablage und Fensterwerkzeuge bleiben direkt über Notch und Menüleiste erreichbar.",
     download_mac: "Für macOS laden",
     see_pricing: "Preis ansehen",
-    hero_note: "Teste alles 7 Tage lang. Danach gehört Orvion dir mit einer einmaligen Lizenz für 7,99 EUR.",
     trust_trial: "7 Tage alles testen",
     trust_license: "Einmal zahlen, dauerhaft nutzen",
     trust_updates: "Signierte automatische Updates",
@@ -162,12 +164,15 @@ const translations = {
     preview_stats_label: "Live-Systemwerte",
     preview_music_label: "Medien",
     preview_music_title: "Läuft gerade",
-    intro_kicker: "Warum Orvion",
-    intro_title: "Ein schnellerer Ort für alles, was dich sonst aus dem Arbeitsfluss holt.",
-    intro_text: "Orvion legt kurze Checks und wiederkehrende Mac-Aktionen dorthin, wo du sie sofort erreichst: in die Notch und Menüleiste.",
     features_kicker: "Funktionen",
-    features_title: "Alles Wichtige nah dran. Nichts davon im Weg.",
-    features_text: "Du aktivierst nur die Module, die zu deinem Setup passen. Der Rest bleibt leise, bis du ihn brauchst.",
+    features_title: "Werkzeuge, die nah an deiner Arbeit bleiben.",
+    features_text: "Aktiviere nur die Module, die zu deinem Arbeitsfluss passen. Alles andere bleibt ruhig, bis du es brauchst.",
+    features_group_notch_title: "In der Notch",
+    features_group_notch_text: "Widgets und schnelle Checks",
+    features_group_desktop_title: "Auf dem Desktop",
+    features_group_desktop_text: "Steuerung ohne App-Wechsel",
+    features_group_setup_title: "Dein Setup",
+    features_group_setup_text: "Modular und lokal gespeichert",
     feature_notch_kicker: "Notch-Arbeitsfläche",
     feature_notch_title: "Notch Control Center",
     feature_notch_text: "Stelle dir eigene Seiten für Musik, Kalender, Notizen, Drop Shelf, Spiegel, Fokus-Timer und schnelle Tools zusammen. Aus der Notch wird ein Ort, der wirklich etwas kann.",
@@ -296,10 +301,7 @@ function renderThemeToggle() {
 function renderHeader() {
   const navItems = [
     { href: "/#features", label: t("nav_features"), key: "features" },
-    { href: "/#pricing", label: t("nav_pricing"), key: "pricing" },
-    { href: "/privacy/", label: t("nav_privacy"), key: "privacy" },
-    { href: "/imprint/", label: t("nav_imprint"), key: "imprint" },
-    { href: "/terms/", label: t("nav_terms"), key: "terms" }
+    { href: "/#pricing", label: t("nav_pricing"), key: "pricing" }
   ];
 
   const navMarkup = navItems.map((item) => {
@@ -331,32 +333,39 @@ function renderFooter() {
   return `
     <footer class="site-footer" data-site-footer>
       <div class="shell footer-panel">
-        <div class="footer-cta">
-          <p class="kicker kicker-light">${t("footer_kicker")}</p>
-          <h2>${t("footer_title")}</h2>
-          <p>${t("footer_text")}</p>
-          <a class="button button-light" href="${downloadUrl}">${t("footer_download")}</a>
-        </div>
-        <div class="footer-links">
-          <div>
-            <strong>${t("footer_explore")}</strong>
-            <a href="/">${t("footer_home")}</a>
-            <a href="/#features">${t("footer_features")}</a>
-            <a href="/contact/">${t("footer_contact")}</a>
+        <div class="footer-top">
+          <div class="footer-cta">
+            <p class="kicker">${t("footer_kicker")}</p>
+            <h2>${t("footer_title")}</h2>
+            <p>${t("footer_text")}</p>
           </div>
-          <div>
-            <strong>${t("footer_legal")}</strong>
-            <a href="/privacy/">${t("footer_privacy")}</a>
-            <a href="/imprint/">${t("footer_imprint")}</a>
-            <a href="/terms/">${t("footer_terms")}</a>
+          <div class="footer-actions">
+            <a class="button button-primary" href="${downloadUrl}">${t("footer_download")}</a>
+            <a class="button button-secondary" href="${buyUrl}">${t("footer_buy")}</a>
           </div>
         </div>
-      </div>
-      <div class="shell footer-meta">
-        <span>© ${year} ${t("footer_rights")}</span>
-        <div class="footer-language-note">
-          <span>${t("language_label")}</span>
-          ${renderLanguageSwitcher("language-switcher-footer")}
+        <div class="footer-directory">
+          <a class="brand footer-brand" href="/" aria-label="Orvion home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-word">Orvion</span>
+          </a>
+          <div class="footer-links">
+            <div>
+              <strong>${t("footer_explore")}</strong>
+              <a href="/">${t("footer_home")}</a>
+              <a href="/#features">${t("footer_features")}</a>
+              <a href="/contact/">${t("footer_contact")}</a>
+            </div>
+            <div>
+              <strong>${t("footer_legal")}</strong>
+              <a href="/privacy/">${t("footer_privacy")}</a>
+              <a href="/imprint/">${t("footer_imprint")}</a>
+              <a href="/terms/">${t("footer_terms")}</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <span>© ${year} ${t("footer_rights")}</span>
         </div>
       </div>
     </footer>
@@ -425,47 +434,8 @@ function setupThemeToggle() {
   });
 }
 
-function setupPreviewGate() {
-  if (sessionStorage.getItem("orvion-preview-unlocked") === "true") return;
-
-  document.body.classList.add("is-preview-locked");
-  const gate = document.createElement("div");
-  gate.className = "preview-gate";
-  gate.innerHTML = `
-    <form class="preview-gate-panel" data-preview-gate>
-      <span class="brand-mark" aria-hidden="true"></span>
-      <p class="preview-gate-kicker">Private Preview</p>
-      <h1>Orvion is not public yet.</h1>
-      <p>Enter the preview password to open the website and download page.</p>
-      <label>
-        <span>Password</span>
-        <input type="password" name="password" autocomplete="current-password" autofocus />
-      </label>
-      <button class="button button-primary" type="submit">Unlock</button>
-      <p class="preview-gate-error" role="alert" hidden>Wrong password.</p>
-    </form>
-  `;
-
-  document.body.appendChild(gate);
-
-  gate.querySelector("form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const input = gate.querySelector("input");
-    const error = gate.querySelector(".preview-gate-error");
-    if (input.value === previewPassword) {
-      sessionStorage.setItem("orvion-preview-unlocked", "true");
-      document.body.classList.remove("is-preview-locked");
-      gate.remove();
-      return;
-    }
-    error.hidden = false;
-    input.select();
-  });
-}
-
 mountSharedChrome();
 applyTheme();
 setupLanguageSwitchers();
 setupThemeToggle();
 applyTranslations();
-setupPreviewGate();
