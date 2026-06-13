@@ -1289,10 +1289,6 @@ p {
   max-width: 760px;
 }
 
-.legal-language-bar {
-  margin-top: 24px;
-}
-
 .language-switcher {
   display: inline-flex;
   padding: 6px;
@@ -1433,11 +1429,64 @@ p {
 
 .contact-grid {
   margin-top: 30px;
+  align-items: stretch;
 }
 
-.contact-card a {
-  display: inline-block;
+.contact-card {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  padding: 28px;
+}
+
+.contact-card h2 {
+  margin-top: 0;
+  font-size: clamp(1.75rem, 2.4vw, 2.35rem);
+  line-height: 1.02;
+}
+
+.contact-card p,
+.contact-address {
+  margin-top: 16px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.contact-address {
+  font-style: normal;
+}
+
+.contact-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
   font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.contact-action::after {
+  content: "↗";
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+body[data-page="contact"] .legal-hero {
+  max-width: none;
+}
+
+body[data-page="contact"] .legal-hero h1 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(3rem, 6vw, 5.4rem);
+}
+
+body[data-page="contact"] .legal-hero > p:last-child {
+  max-width: 720px;
 }
 
 @media (max-width: 1100px) {
@@ -1522,6 +1571,10 @@ p {
 
   .notch-preview {
     min-height: 520px;
+  }
+
+  body[data-page="contact"] .legal-hero h1 {
+    white-space: normal;
   }
 
 }
