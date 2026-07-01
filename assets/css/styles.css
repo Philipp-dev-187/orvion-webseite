@@ -1144,6 +1144,26 @@ p {
   background: var(--accent);
 }
 
+.pricing-legal-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: baseline;
+  margin-top: 18px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.pricing-legal-note span {
+  flex-basis: 100%;
+  color: var(--muted);
+}
+
+.pricing-legal-note a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .pricing-note {
   background:
     linear-gradient(180deg, var(--surface), var(--surface)),
@@ -1275,6 +1295,9 @@ p {
 }
 
 .footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
   color: var(--muted);
@@ -1425,6 +1448,18 @@ p {
 .legal-panel a {
   color: var(--accent);
   font-weight: 650;
+}
+
+.license-text {
+  overflow-x: auto;
+  margin: 18px 0 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  color: var(--muted-strong);
+  font: 0.82rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre-wrap;
 }
 
 .contact-grid {

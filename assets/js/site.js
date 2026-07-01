@@ -23,8 +23,10 @@ const translations = {
     footer_legal: "Legal",
     footer_privacy: "Privacy Policy",
     footer_imprint: "Imprint",
-    footer_terms: "Terms",
-    footer_rights: "Orvion. All rights reserved.",
+    footer_terms: "License Terms",
+    footer_third_party: "Third-Party Notices",
+    footer_cookie_note: "No optional tracking cookies.",
+    footer_rights: "Philipp Rieger. Orvion. All rights reserved.",
     contact_page_title: "Contact | Orvion",
     contact_kicker: "Contact",
     contact_title: "How can we help?",
@@ -36,14 +38,16 @@ const translations = {
     contact_postal_title: "Postal address",
     contact_country: "Germany",
     legal_kicker: "Legal",
-    legal_last_updated: "Last updated: 26 May 2026",
+    legal_last_updated: "Last updated: 1 July 2026",
     legal_privacy_page_title: "Privacy Policy | Orvion",
     legal_privacy_title: "Privacy Policy",
     legal_imprint_page_title: "Imprint | Orvion",
     legal_imprint_title: "Imprint",
     legal_imprint_intro: "Provider information for the Orvion website and macOS app.",
-    legal_terms_page_title: "Terms of Service | Orvion",
-    legal_terms_title: "Terms of Service",
+    legal_terms_page_title: "License Terms / EULA | Orvion",
+    legal_terms_title: "License Terms / EULA",
+    legal_third_party_page_title: "Third-Party Notices | Orvion",
+    legal_third_party_title: "Third-Party Notices",
     language_label: "Language",
     theme_label: "Theme",
     theme_dark: "Dark",
@@ -111,6 +115,10 @@ const translations = {
     download_trial: "Download trial",
     pricing_note_title: "What happens after 7 days?",
     pricing_note_text: "If no license is active after the trial, Orvion pauses the app features. You can still open settings, activate a license, check updates, or quit normally.",
+    pricing_legal_note: "Purchases are processed by Lemon Squeezy as Merchant of Record. Before completing a purchase, review the checkout price, taxes, billing details, payment method, terms, privacy information, and withdrawal or refund information.",
+    pricing_legal_terms: "License Terms",
+    pricing_legal_privacy: "Privacy Policy",
+    pricing_legal_imprint: "Imprint",
     privacy_kicker: "Privacy",
     privacy_title: "Your workspace should stay yours.",
     privacy_text: "Orvion stores app settings and local state on your Mac. License checks run through Lemon Squeezy, updates are handled by Sparkle, and downloads are served through GitHub Releases.",
@@ -152,8 +160,10 @@ const translations = {
     footer_legal: "Rechtliches",
     footer_privacy: "Datenschutz",
     footer_imprint: "Impressum",
-    footer_terms: "AGB",
-    footer_rights: "Orvion. Alle Rechte vorbehalten.",
+    footer_terms: "Lizenzbedingungen",
+    footer_third_party: "Third-Party Notices",
+    footer_cookie_note: "Keine optionalen Tracking-Cookies.",
+    footer_rights: "Philipp Rieger. Orvion. Alle Rechte vorbehalten.",
     contact_page_title: "Kontakt | Orvion",
     contact_kicker: "Kontakt",
     contact_title: "Wie können wir helfen?",
@@ -165,14 +175,16 @@ const translations = {
     contact_postal_title: "Postanschrift",
     contact_country: "Deutschland",
     legal_kicker: "Rechtliches",
-    legal_last_updated: "Zuletzt aktualisiert: 26. Mai 2026",
+    legal_last_updated: "Zuletzt aktualisiert: 1. Juli 2026",
     legal_privacy_page_title: "Datenschutzerklärung | Orvion",
     legal_privacy_title: "Datenschutzerklärung",
     legal_imprint_page_title: "Impressum | Orvion",
     legal_imprint_title: "Impressum",
     legal_imprint_intro: "Anbieterinformationen für die Orvion-Website und die macOS-App.",
-    legal_terms_page_title: "Nutzungsbedingungen | Orvion",
-    legal_terms_title: "Nutzungsbedingungen",
+    legal_terms_page_title: "Lizenzbedingungen / EULA | Orvion",
+    legal_terms_title: "Lizenzbedingungen / EULA",
+    legal_third_party_page_title: "Third-Party Notices | Orvion",
+    legal_third_party_title: "Third-Party Notices",
     language_label: "Sprache",
     theme_label: "Design",
     theme_dark: "Dunkel",
@@ -240,6 +252,10 @@ const translations = {
     download_trial: "Testversion laden",
     pricing_note_title: "Was passiert nach 7 Tagen?",
     pricing_note_text: "Ohne aktive Lizenz pausiert Orvion nach der Testphase die App-Funktionen. Einstellungen, Lizenzaktivierung, Updates und Beenden bleiben weiter erreichbar.",
+    pricing_legal_note: "Käufe werden über Lemon Squeezy als Merchant of Record abgewickelt. Prüfe vor Abschluss des Kaufs den im Checkout angezeigten Preis, Steuern, Rechnungsdaten, Zahlungsmethode, Bedingungen, Datenschutzinformationen sowie Widerrufs- oder Erstattungsinformationen.",
+    pricing_legal_terms: "Lizenzbedingungen",
+    pricing_legal_privacy: "Datenschutz",
+    pricing_legal_imprint: "Impressum",
     privacy_kicker: "Datenschutz",
     privacy_title: "Dein Arbeitsbereich soll deiner bleiben.",
     privacy_text: "Orvion speichert Einstellungen und lokalen App-Zustand auf deinem Mac. Lizenzprüfungen laufen über Lemon Squeezy, Updates über Sparkle, Downloads über GitHub Releases.",
@@ -383,11 +399,13 @@ function renderFooter() {
               <a href="/privacy/">${t("footer_privacy")}</a>
               <a href="/imprint/">${t("footer_imprint")}</a>
               <a href="/terms/">${t("footer_terms")}</a>
+              <a href="/third-party-notices/">${t("footer_third_party")}</a>
             </div>
           </div>
         </div>
         <div class="footer-meta">
           <span>© ${year} ${t("footer_rights")}</span>
+          <span>${t("footer_cookie_note")}</span>
         </div>
       </div>
     </footer>
