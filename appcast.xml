@@ -4,12 +4,12 @@
         <title>Orvion</title>
         <item>
             <title>1.0.26</title>
-            <pubDate>Wed, 08 Jul 2026 10:04:52 +0200</pubDate>
+            <pubDate>Wed, 08 Jul 2026 10:17:04 +0200</pubDate>
             <link>https://www.getorvion.app</link>
-            <sparkle:version>68</sparkle:version>
+            <sparkle:version>69</sparkle:version>
             <sparkle:shortVersionString>1.0.26</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg" length="10195448" type="application/octet-stream" sparkle:edSignature="OXreD90Pn2Lr+RU3isPT3Ztlg7DIArNy5h/vaJq3h9cXWkVn6O8I1lGcXX1vH4P0MLHToY4q7QBaSCWCEgkUBw=="/>
+            <enclosure url="https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg" length="10196316" type="application/octet-stream" sparkle:edSignature="4dGexgbYTjYCjhPuXIlbFUQnp8YbhjBKiqMr6c2RV8bAHVA6hVWGZJREaGg0ccI4NHBK9eAR1Z0CSjGERG8fAw=="/>
         </item>
     </channel>
 </rss>
