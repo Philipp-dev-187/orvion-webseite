@@ -1,7 +1,7 @@
 const page = document.body.dataset.page || "";
 const legalPage = document.body.dataset.legalPage || "";
 const downloadUrl = "https://github.com/Philipp-dev-187/orvion-webseite/releases/latest/download/Orvion.dmg";
-const buyUrl = "https://orvion-app.lemonsqueezy.com/checkout/buy/cc1af687-59b8-4466-ba9e-64219466e10c";
+const buyUrl = "https://buy.polar.sh/polar_cl_qbXbctPzFUt7OvcAgNlbRdFrzUbf1erO2gqTP34seE1";
 
 const translations = {
   en: {
@@ -38,7 +38,7 @@ const translations = {
     contact_postal_title: "Postal address",
     contact_country: "Germany",
     legal_kicker: "Legal",
-    legal_last_updated: "Last updated: 1 July 2026",
+    legal_last_updated: "Last updated: 29 September 2026",
     legal_privacy_page_title: "Privacy Policy | Orvion",
     legal_privacy_title: "Privacy Policy",
     legal_imprint_page_title: "Imprint | Orvion",
@@ -115,17 +115,17 @@ const translations = {
     download_trial: "Download trial",
     pricing_note_title: "What happens after 7 days?",
     pricing_note_text: "If no license is active after the trial, Orvion pauses the app features. You can still open settings, activate a license, check updates, or quit normally.",
-    pricing_legal_note: "Purchases are processed by Lemon Squeezy as Merchant of Record. Before completing a purchase, review the checkout price, taxes, billing details, payment method, terms, privacy information, and withdrawal or refund information.",
+    pricing_legal_note: "Purchases are processed by Polar as Merchant of Record. Before completing a purchase, review the checkout price, taxes, billing details, payment method, terms, privacy information, and withdrawal or refund information.",
     pricing_legal_terms: "Terms / License Terms",
     pricing_legal_privacy: "Privacy Policy",
     pricing_legal_imprint: "Imprint",
     privacy_kicker: "Privacy",
     privacy_title: "Your workspace should stay yours.",
-    privacy_text: "Orvion stores app settings and local state on your Mac. License checks run through Lemon Squeezy, updates are handled by Sparkle, and downloads are served through GitHub Releases.",
+    privacy_text: "Orvion stores app settings and local state on your Mac. License checks run through Polar, updates are handled by Sparkle, and downloads are served through GitHub Releases.",
     privacy_local_title: "Local app data",
     privacy_local_text: "Feature settings, layouts, shortcuts, and app state stay on your Mac.",
     privacy_license_title: "License checks",
-    privacy_license_text: "Purchases and license validation are handled by Lemon Squeezy.",
+    privacy_license_text: "Purchases and license validation are handled by Polar.",
     privacy_updates_title: "Updates",
     privacy_updates_text: "Sparkle checks for signed, notarized updates and installs them through the standard macOS flow.",
     faq_title: "A few things worth knowing.",
@@ -139,7 +139,19 @@ const translations = {
     faq_updates_a: "Orvion uses Sparkle to deliver signed and notarized app updates.",
     download_kicker: "Download",
     download_title: "Try Orvion on your Mac today.",
-    download_text: "Download the signed macOS app, move it to Applications, and take the full feature set for a 7-day test run."
+    download_text: "Download the signed macOS app, move it to Applications, and take the full feature set for a 7-day test run.",
+    success_page_title: "Purchase complete | Orvion",
+    success_kicker: "Purchase complete",
+    success_title: "Thanks for buying Orvion.",
+    success_intro: "Polar will send your receipt and license key by email. Use the key to unlock Orvion on up to two Macs.",
+    success_step_download_title: "1. Download Orvion",
+    success_step_download_text: "Download the latest signed version from GitHub Releases and move Orvion to Applications.",
+    success_step_download_action: "Download for macOS",
+    success_step_activate_title: "2. Activate your license",
+    success_step_activate_text: "Open Orvion, go to Settings → License, paste the license key from Polar, and select Activate.",
+    success_step_help_title: "3. Need help?",
+    success_step_help_text: "If the email has not arrived after a few minutes or activation fails, contact Orvion support.",
+    success_step_help_action: "Contact support"
   },
   de: {
     nav_features: "Funktionen",
@@ -175,7 +187,7 @@ const translations = {
     contact_postal_title: "Postanschrift",
     contact_country: "Deutschland",
     legal_kicker: "Rechtliches",
-    legal_last_updated: "Zuletzt aktualisiert: 1. Juli 2026",
+    legal_last_updated: "Zuletzt aktualisiert: 29. September 2026",
     legal_privacy_page_title: "Datenschutzerklärung | Orvion",
     legal_privacy_title: "Datenschutzerklärung",
     legal_imprint_page_title: "Impressum | Orvion",
@@ -252,17 +264,17 @@ const translations = {
     download_trial: "Testversion laden",
     pricing_note_title: "Was passiert nach 7 Tagen?",
     pricing_note_text: "Ohne aktive Lizenz pausiert Orvion nach der Testphase die App-Funktionen. Einstellungen, Lizenzaktivierung, Updates und Beenden bleiben weiter erreichbar.",
-    pricing_legal_note: "Käufe werden über Lemon Squeezy als Merchant of Record abgewickelt. Prüfe vor Abschluss des Kaufs den im Checkout angezeigten Preis, Steuern, Rechnungsdaten, Zahlungsmethode, Bedingungen, Datenschutzinformationen sowie Widerrufs- oder Erstattungsinformationen.",
+    pricing_legal_note: "Käufe werden über Polar als Merchant of Record abgewickelt. Prüfe vor Abschluss des Kaufs den im Checkout angezeigten Preis, Steuern, Rechnungsdaten, Zahlungsmethode, Bedingungen, Datenschutzinformationen sowie Widerrufs- oder Erstattungsinformationen.",
     pricing_legal_terms: "AGB / Lizenzbedingungen",
     pricing_legal_privacy: "Datenschutz",
     pricing_legal_imprint: "Impressum",
     privacy_kicker: "Datenschutz",
     privacy_title: "Dein Arbeitsbereich soll deiner bleiben.",
-    privacy_text: "Orvion speichert Einstellungen und lokalen App-Zustand auf deinem Mac. Lizenzprüfungen laufen über Lemon Squeezy, Updates über Sparkle, Downloads über GitHub Releases.",
+    privacy_text: "Orvion speichert Einstellungen und lokalen App-Zustand auf deinem Mac. Lizenzprüfungen laufen über Polar, Updates über Sparkle, Downloads über GitHub Releases.",
     privacy_local_title: "Lokale App-Daten",
     privacy_local_text: "Feature-Einstellungen, Layouts, Shortcuts und App-Zustand bleiben auf deinem Mac.",
     privacy_license_title: "Lizenzprüfung",
-    privacy_license_text: "Kauf, Aktivierung und Lizenzprüfung werden über Lemon Squeezy abgewickelt.",
+    privacy_license_text: "Kauf, Aktivierung und Lizenzprüfung werden über Polar abgewickelt.",
     privacy_updates_title: "Updates",
     privacy_updates_text: "Sparkle prüft signierte und notarierte Updates und installiert sie über den gewohnten macOS-Ablauf.",
     faq_title: "Ein paar Dinge vor der Installation.",
@@ -276,7 +288,19 @@ const translations = {
     faq_updates_a: "Orvion nutzt Sparkle, um signierte und notarisierte Updates auszuliefern.",
     download_kicker: "Download",
     download_title: "Teste Orvion direkt auf deinem Mac.",
-    download_text: "Lade die signierte macOS-App, verschiebe sie in Programme und probiere den vollen Funktionsumfang 7 Tage lang aus."
+    download_text: "Lade die signierte macOS-App, verschiebe sie in Programme und probiere den vollen Funktionsumfang 7 Tage lang aus.",
+    success_page_title: "Kauf abgeschlossen | Orvion",
+    success_kicker: "Kauf abgeschlossen",
+    success_title: "Danke, dass du Orvion gekauft hast.",
+    success_intro: "Polar sendet dir den Beleg und deinen Lizenzschlüssel per E-Mail. Mit dem Schlüssel kannst du Orvion auf bis zu zwei Macs freischalten.",
+    success_step_download_title: "1. Orvion laden",
+    success_step_download_text: "Lade die aktuelle signierte Version über GitHub Releases und verschiebe Orvion in den Programme-Ordner.",
+    success_step_download_action: "Für macOS laden",
+    success_step_activate_title: "2. Lizenz aktivieren",
+    success_step_activate_text: "Öffne Orvion, gehe zu Einstellungen → Lizenz, füge den Lizenzschlüssel von Polar ein und klicke auf Aktivieren.",
+    success_step_help_title: "3. Du brauchst Hilfe?",
+    success_step_help_text: "Falls die E-Mail nach einigen Minuten nicht angekommen ist oder die Aktivierung fehlschlägt, melde dich beim Orvion-Support.",
+    success_step_help_action: "Support kontaktieren"
   }
 };
 
