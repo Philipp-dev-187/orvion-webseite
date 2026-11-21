@@ -363,6 +363,41 @@ p {
   object-fit: cover;
 }
 
+.demo-play {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(10, 14, 30, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.demo-play:hover {
+  transform: scale(1.06);
+  background: rgba(10, 14, 30, 0.7);
+}
+
+.demo-play[hidden] {
+  display: none;
+}
+
+.demo-play svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+}
+
 .demo-chapters {
   list-style: none;
   display: flex;

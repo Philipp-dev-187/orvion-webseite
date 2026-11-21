@@ -12,8 +12,8 @@
     <meta property="og:image" content="https://www.getorvion.app/assets/og/orvion-home.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f5f7fb" />
-    <link rel="stylesheet" href="/assets/css/styles.css?v=44" />
-    <script defer src="/assets/js/site.js?v=45"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css?v=45" />
+    <script defer src="/assets/js/site.js?v=46"></script>
 </head>
 <body data-page="home">
 <div data-site-header></div>
@@ -36,8 +36,11 @@
         </div>
 
         <div class="hero-visual" aria-label="Orvion product preview">
-            <figure class="demo-frame">
-                <video class="demo-video" data-demo-video src="/assets/video/orvion-demo.mp4?v=2" poster="/assets/video/orvion-demo-poster.jpg?v=2" autoplay muted loop playsinline preload="metadata" aria-label="Orvion demo: the notch opens with music and calendar, a focus timer starts beside the notch, and the App Shelf slides out next to the Dock"></video>
+            <figure class="demo-frame" data-demo-frame>
+                <button class="demo-play" type="button" data-demo-play aria-label="Play demo" hidden>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                </button>
+                <video class="demo-video" data-demo-video src="/assets/video/orvion-demo.mp4?v=3" poster="/assets/video/orvion-demo-poster.jpg?v=3" autoplay muted loop playsinline preload="auto" aria-label="Orvion demo: the notch opens with music and calendar, a focus timer starts beside the notch, and the App Shelf slides out next to the Dock"></video>
             </figure>
             <ul class="demo-chapters" aria-label="Shown in the demo">
                 <li data-i18n="demo_notch">Notch Control Center</li>
@@ -125,34 +128,6 @@
                 <p data-i18n="feature_remap_text">Turn keys, shortcuts, mouse buttons, media keys, and scroll behavior into inputs that match the way you work.</p>
             </article>
         </div>
-    </section>
-
-    <section class="section-shell story-stack">
-        <article class="story-card">
-            <div class="story-copy">
-                <p class="kicker" data-i18n="story_notch_kicker">Notch workspace</p>
-                <h2 data-i18n="story_notch_title">The notch stops being wasted space.</h2>
-                <p data-i18n="story_notch_text">Use Orvion for the things you check constantly: music, focus status, notes, calendar, system stats, and temporary tools.</p>
-            </div>
-            <div class="story-visual">
-                <figure class="product-frame product-frame-story">
-                    <img src="/assets/img/product/Focus_big.png" alt="Orvion focus timer on a macOS desktop" />
-                </figure>
-            </div>
-        </article>
-
-        <article class="story-card story-reverse">
-            <div class="story-copy">
-                <p class="kicker" data-i18n="story_flow_kicker">Desktop flow</p>
-                <h2 data-i18n="story_flow_title">Less app switching. More staying with the task.</h2>
-                <p data-i18n="story_flow_text">Window layouts, input remaps, media control, and clipboard history stay close to your work without turning into another dashboard you have to manage.</p>
-            </div>
-            <div class="story-visual">
-                <figure class="product-frame product-frame-story product-frame-mockup">
-                    <img src="/assets/img/product/mockup_floatingplayer_cropped.png" alt="Orvion floating music player on a macOS desktop" />
-                </figure>
-            </div>
-        </article>
     </section>
 
     <section class="section-shell pricing-section" id="pricing">

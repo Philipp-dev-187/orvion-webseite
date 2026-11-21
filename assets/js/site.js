@@ -512,22 +512,47 @@ setupLanguageSwitchers();
 setupThemeToggle();
 applyTranslations();
 
-// The hero demo loops silently. With Reduce Motion it stays on its poster
-// and offers controls instead of playing by itself.
+// The hero demo loops silently. Browsers only autoplay muted inline video,
+// so the flags are set in code too, playback is retried once data and
+// visibility allow it, and a play button appears if the browser refuses.
 (function setUpDemoVideo() {
   const video = document.querySelector("[data-demo-video]");
   if (!video) return;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const apply = () => {
-    if (reduceMotion.matches) {
-      video.pause();
-      video.removeAttribute("autoplay");
-      video.controls = true;
-    } else {
-      video.controls = false;
-      video.play().catch(() => {});
+  const playButton = document.querySelector("[data-demo-play]");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+
+  const showButton = (visible) => {
+    if (playButton) playButton.hidden = !visible;
+  };
+
+  const tryPlay = () => {
+    const attempt = video.play();
+    if (attempt && typeof attempt.then === "function") {
+      attempt.then(() => showButton(false)).catch(() => showButton(true));
     }
   };
-  apply();
-  reduceMotion.addEventListener?.("change", apply);
+
+  playButton?.addEventListener("click", () => {
+    video.muted = true;
+    tryPlay();
+  });
+  video.addEventListener("playing", () => showButton(false));
+  video.addEventListener("loadeddata", tryPlay, { once: true });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (video.paused) tryPlay();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.2 }).observe(video);
+  } else {
+    tryPlay();
+  }
 })();
