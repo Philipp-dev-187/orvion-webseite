@@ -54,8 +54,12 @@ const translations = {
     theme_light: "Light",
 
     hero_eyebrow: "macOS productivity app · 7-day full trial",
-    hero_title: "Control your Mac from the notch.",
-    hero_text: "Tools that stay close to your work. Notes, media, focus, system stats, clipboard, and window tools stay available from the notch and menu bar. Choose only the modules that fit your workflow. Everything else stays quiet until you need it.",
+    hero_title: "Your notch can do more.",
+    hero_text: "Music, calendar, a focus timer, files and notes live right where your notch is. Add an App Shelf that slides out of the Dock, live system stats and window tools. Turn on what you need, nothing else.",
+    demo_notch: "Notch Control Center",
+    demo_focus: "Focus Timer",
+    demo_shelf: "App Shelf",
+    demo_menu: "Menu Bar & Stats",
     download_mac: "Download for macOS",
     see_pricing: "See pricing",
     trust_trial: "7-day full trial",
@@ -79,9 +83,9 @@ const translations = {
     feature_windows_title: "Window Management",
     feature_windows_text: "Move windows into halves, thirds, quarters, or your own layouts with shortcuts you can actually shape around your workflow.",
     feature_focus_title: "Focus Timer",
-    feature_focus_text: "Start a session from the notch and keep the timer visible without opening another app or losing your current context.",
+    feature_focus_text: "A live timer grows out of the notch. Pause, skip or extend in one click, block distracting apps and sites, and see what you got done today.",
     feature_media_title: "App Shelf",
-    feature_media_text: "Keep occasional apps near the Dock without pinning them there permanently. Use one shelf everywhere or tailor it to desktops and Focus modes.",
+    feature_media_text: "Extra apps slide out right next to the Dock, only while the Dock is showing. Use one shelf everywhere or tailor it to desktops and Focus modes.",
     feature_remap_title: "Input Remapping",
     feature_remap_text: "Turn keys, shortcuts, mouse buttons, media keys, and scroll behavior into inputs that match the way you work.",
     feature_stats_kicker: "Live diagnostics",
@@ -203,8 +207,12 @@ const translations = {
     theme_light: "Hell",
 
     hero_eyebrow: "Produktivitäts-App für macOS · 7 Tage Vollzugriff",
-    hero_title: "Steuere deinen Mac aus der Notch.",
-    hero_text: "Werkzeuge, die nah an deiner Arbeit bleiben. Notizen, Medien, Fokus, Systemwerte, Zwischenablage und Fensterwerkzeuge bleiben direkt über Notch und Menüleiste erreichbar. Aktiviere nur die Module, die zu deinem Arbeitsfluss passen. Alles andere bleibt ruhig, bis du es brauchst.",
+    hero_title: "Deine Notch kann mehr.",
+    hero_text: "Musik, Kalender, Focus Timer, Dateien und Notizen, genau dort, wo deine Notch sitzt. Dazu ein App Shelf, das aus dem Dock fährt, Systemwerte in der Menüleiste und Fensterwerkzeuge. Du schaltest nur ein, was du brauchst.",
+    demo_notch: "Notch Control Center",
+    demo_focus: "Focus Timer",
+    demo_shelf: "App Shelf",
+    demo_menu: "Menüleiste & Systemwerte",
     download_mac: "Für macOS laden",
     see_pricing: "Preis ansehen",
     trust_trial: "7 Tage alles testen",
@@ -228,9 +236,9 @@ const translations = {
     feature_windows_title: "Fenstermanagement",
     feature_windows_text: "Lege Fenster in Hälften, Drittel, Viertel oder eigene Layouts. Die Shortcuts passt du so an, wie du wirklich arbeitest.",
     feature_focus_title: "Focus Timer",
-    feature_focus_text: "Starte Fokus-Sessions direkt in der Notch und behalte die Zeit im Blick, ohne dafür eine weitere App zu öffnen.",
+    feature_focus_text: "Ein Live-Timer wächst aus der Notch. Pausieren, überspringen oder verlängern mit einem Klick, ablenkende Apps und Websites sperren und sehen, was du heute geschafft hast.",
     feature_media_title: "App Shelf",
-    feature_media_text: "Halte gelegentlich genutzte Apps griffbereit neben dem Dock, ohne sie dort dauerhaft anzupinnen. Nutze überall dasselbe Shelf oder passe es an Desktops und Fokusmodi an.",
+    feature_media_text: "Zusätzliche Apps fahren direkt neben dem Dock heraus, nur wenn das Dock zu sehen ist. Nutze überall dasselbe Shelf oder passe es an Desktops und Fokusmodi an.",
     feature_remap_title: "Input Remapping",
     feature_remap_text: "Passe Tasten, Shortcuts, Maustasten, Medientasten und Scrollverhalten an deinen Arbeitsstil an, global oder pro App.",
     feature_stats_kicker: "Live-Diagnose",
@@ -503,3 +511,23 @@ applyTheme();
 setupLanguageSwitchers();
 setupThemeToggle();
 applyTranslations();
+
+// The hero demo loops silently. With Reduce Motion it stays on its poster
+// and offers controls instead of playing by itself.
+(function setUpDemoVideo() {
+  const video = document.querySelector("[data-demo-video]");
+  if (!video) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const apply = () => {
+    if (reduceMotion.matches) {
+      video.pause();
+      video.removeAttribute("autoplay");
+      video.controls = true;
+    } else {
+      video.controls = false;
+      video.play().catch(() => {});
+    }
+  };
+  apply();
+  reduceMotion.addEventListener?.("change", apply);
+})();

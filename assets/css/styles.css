@@ -335,6 +335,90 @@ p {
   object-fit: cover;
 }
 
+/* Hero demo video */
+.demo-frame {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #0b1020;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 40px 120px rgba(52, 84, 220, 0.32), 0 18px 50px rgba(0, 0, 0, 0.3);
+}
+
+.demo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.demo-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.demo-chapters {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.demo-chapters li {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--muted-strong);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Fresh product shots (real screenshots on the wallpaper) */
+.product-frame-shot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin: 0 0 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+}
+
+.product-frame-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.product-frame-shot-natural {
+  aspect-ratio: auto;
+  align-self: center;
+}
+
+.product-frame-shot-natural img {
+  height: auto;
+}
+
+.product-frame-shot-bottom img {
+  object-position: bottom center;
+}
+
+.feature-spotlight .product-frame-shot {
+  margin-bottom: 0;
+}
+
 .product-frame-hero {
   aspect-ratio: 3600 / 2338;
   border-radius: 34px;
