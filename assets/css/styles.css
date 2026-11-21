@@ -1878,3 +1878,24 @@ body[data-page="contact"] .legal-hero > p:last-child {
     transform: none;
   }
 }
+
+/* The menu card spans two grid rows next to Focus Timer, App Shelf and
+   Clipboard. Centre its content so the extra height reads as breathing room
+   instead of an empty slot under the text. */
+@media (min-width: 1101px) {
+  .feature-card-menu-controls {
+    justify-content: center;
+  }
+
+  .feature-card-menu-controls .product-frame-card {
+    height: auto;
+    max-height: 640px;
+  }
+
+  .feature-card-menu-controls .product-frame-card img {
+    width: 100%;
+    height: auto;
+    max-height: 640px;
+    object-fit: contain;
+  }
+}
